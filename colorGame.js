@@ -1,4 +1,6 @@
 var numSquares = 6;
+var score = 0;
+var total = 0;
 var colors = generateRandomColors(numSquares);
 var squares = document.querySelectorAll(".square");
 var pickedColor = pickColor();
@@ -7,6 +9,8 @@ var messageDisplay = document.querySelector("#message");
 var h1 = document.querySelector("h1");
 var resetButton = document.querySelector("#reset");
 var modeButtons = document.querySelectorAll(".mode");
+var scoreNum = document.querySelector("#scoreNum");
+var totalNum = document.querySelector("#totalNum");
 
 for(var i = 0; i<modeButtons.length; i++){
 	modeButtons[i].addEventListener("click", function(){
@@ -18,6 +22,10 @@ for(var i = 0; i<modeButtons.length; i++){
 		//pick new colors
 		//pick a new pickedColor
 		//update page to reflect changes
+		score = 0;
+		total = 0;
+		scoreNum.textContent = score;
+		totalNum.textContent = total;
 		reset();
 	});
 }
@@ -85,14 +93,24 @@ for(var i=0; i<squares.length; i++){
 	squares[i].addEventListener("click",function(){
 		var clickedColor = this.style.backgroundColor;
 		if(clickedColor === pickedColor){
-			messageDisplay.textContent = "Correct!";
+			messageDisplay.innerHTML = '<i class="far fa-smile-wink"></i> Correct';
+			if(h1.style.backgroundColor != pickedColor && colors.includes(clickedColor)){
+				total += 1;
+				score += 1;
+				scoreNum.textContent = score;
+				totalNum.textContent = total;
+			}
 			changeColors(pickedColor);
 			h1.style.backgroundColor = pickedColor;
 			resetButton.textContent = "Play Again?"
 			
 		}else{
-			this.style.backgroundColor ="#232323";
-			messageDisplay.textContent = "Try Again";
+			this.style.backgroundColor = "#232323";
+			messageDisplay.innerHTML = '<i class="far fa-frown"></i> Try Again';
+			if(h1.style.backgroundColor != pickedColor && colors.includes(clickedColor)){
+				total += 1;
+				totalNum.textContent = total;
+			}
 		}
 	});
 }

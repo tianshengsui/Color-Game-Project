@@ -73,6 +73,16 @@ button:hover{
 	width: 20%;
 }
 
+i{
+	font-size: 1.3rem;		
+}
+
+#scoreCounter{
+	color: steelblue;
+	font-weight: 700;
+	font-size: 19px;
+	padding-left: 16px;
+}
 
 
 
